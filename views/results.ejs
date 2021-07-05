@@ -12,10 +12,10 @@
         <div class="userlist">
             <h1>User List</h1>
             <ul>
-                <% for (i = 0; i<users.length; i++) {%>
+                <% for (i = 0; i<resultados.length; i++) {%>
                     <li>
-                        <a href="/users/userId=<%= users[i].id %> ">
-                        <%= users[i].name %>
+                        <a href="/users/userId=<%= resultados[i].id %> ">
+                        <%= resultados[i].name %>
                     </a>
                 </li>
                 <% } %>

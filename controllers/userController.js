@@ -8,6 +8,17 @@ let users = [
 
 let userController = {
     register: (req, res) => res.render('register'),
+    create: (req,res) => {
+        const userInfo = {nombre, edad, email} = req.body
+        // let usuario = {
+        //     nombre: req.body.nombre,
+        //     edad: req.body.edad,
+        //     email: req.body.email
+        // }
+        console.log(userInfo);
+        res.redirect('/users/list');
+        
+    },
     login: (req, res) => res.render('login'),
     list: (req, res) => res.render('userList', { users }),
     search: (req, res) => {

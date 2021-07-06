@@ -31,6 +31,14 @@ let userController = {
             }
         }
         res.render('results', {resultados})
+    },
+    edit: (req, res) => {
+        let idUser = req.params.idUser;
+        let userToEdit = users[idUser];
+        res.render('userEdit', {userToEdit});
+    },
+    delete: (req, res) => {
+        
     }
 
 }

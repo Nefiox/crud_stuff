@@ -10,17 +10,16 @@ let fs = require('fs');
 let userController = {
     register: (req, res) => res.render('register'),
     create: (req,res) => {
-        // const userInfo = {nombre, edad, email} = req.body
-        const userInfo = {nombre: req.body.nombre, edad: req.body.edad, email: req.body.email}
+        const userInfo = {nombre, edad, email} = req.body
+        // const userInfo = {nombre: req.body.nombre, edad: req.body.edad, email: req.body.email}
 
-        // 1) Leer el archivo de usuarios.json y parsearlo para poder leer el JSON
         let readUserFile = fs.readFileSync('usuarios.json', {encoding: 'utf-8'});
         // Validación si readUserFile está vacio
         let usuarios;
         if (readUserFile == '') {
             usuarios = [];
         } else { 
-            usuarios = JSON.parse(readUserFile); // Debería ser un array
+            usuarios = JSON.parse(readUserFile); // Array
         }
         usuarios.push(userInfo);
 

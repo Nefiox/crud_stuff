@@ -14,10 +14,10 @@
             <ul>
                 <% for (i = 0; i<users.length; i++) {%>
                     <li>
-                        <a href="/users/userId=<%= users[i].id %> ">
-                        <%= users[i].name %>
+                        <a href="/users/userName=<%= users[i].nombre %> ">
+                        <%= users[i].nombre %>
                     </a>
-                    <form method="POST" action="/users/delete/<%= users[i].id %>?_method=DELETE">
+                    <form method="POST" action="/users/delete/<%= users[i].nombre %>?_method=DELETE">
                         <button type="submit">Delete</button>
                     </form>
                 </li>

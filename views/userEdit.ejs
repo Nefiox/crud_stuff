@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Editar usuario <%= userToEdit.name %> </h1>
+    <h1>Editar usuario <%= userToEdit.nombre %> </h1>
     <form method="POST" action="/users/edit?_method=PUT">
     <label for="">Nombre</label>
-    <input type="text" name="nombre" value="<%= userToEdit.name %> ">
+    <input type="text" name="nombre" value="<%= userToEdit.nombre %> ">
     <br>
     <input type="submit" value="Editar">
 

@@ -12,7 +12,7 @@ router.get('/login', userController.login);
 router.get('/list', userController.list);
 router.get('/search', userController.search);
 router.get('/edit/:idUser', userController.edit);
-router.put('/edit/', (req, res) => res.send('xd')); // ACTUALIZA INFO
-router.delete('/delete/:idUser', (req, res) => res.send('delettt')) // BORRA INFO
+router.put('/edit/', (req, res) => res.send('Usuario actualizado')); // ACTUALIZA INFO
+router.delete('/delete/:idUser', (req, res) => res.send('Usuario eliminado')) // BORRA INFO
 
 module.exports = router;

@@ -1,0 +1,4 @@
+El usuario entró a la ruta /
+El usuario entró a la ruta /users/list
+El usuario entró a la ruta /stylesheets/users.css
+El usuario entró a la ruta /users/register

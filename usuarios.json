@@ -1,15 +1,1 @@
-[
-  {
-    "nombre": "Fouad",
-    "edad": "777",
-    "email": "missionmary@outlook.com",
-    "password": "12345"
-  },
-  { "nombre": "Jesus", "edad": "732745", "email": "javime128a@gmail.com" },
-  { "nombre": "Norbert", "edad": "31", "email": "dondemko@outlook.com" },
-  { "nombre": "Gustavo", "edad": "3534", "email": "guh9090@gmail.com" },
-  { "nombre": "Paulo", "edad": "73373", "email": "bachordarek@outlook.com" },
-  { "nombre": "Frank", "edad": "145", "email": "frankemail@gmail.com" },
-  { "nombre": "Jesus", "edad": "32", "email": "javime128a@gmail.com" },
-  { "nombre": "Jesus", "edad": "32", "email": "javime128a@gmail.com" }
-]
+[{"nombre":"Brollic","edad":"777","email":"charmaker0811a@outlook.com","password":"$2a$10$plGUAWizmKog3DF1xHN/TenQ9n.jEfhzOmwVb79VjO3y9PnbOoAnK"}]

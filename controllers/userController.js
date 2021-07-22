@@ -6,8 +6,13 @@ const { validationResult } = require('express-validator');
 let userController = {
     register: (req, res) => res.render('register'),
     create: (req,res) => {
-        const userInfo = {nombre, edad, email} = req.body
-        // const userInfo = {nombre: req.body.nombre, edad: req.body.edad, email: req.body.email}
+        // const userInfo = {nombre, edad, email, bcrypt.hashSync(password, 10)} = req.body;
+        const userInfo = {
+            nombre: req.body.nombre,
+            edad: req.body.edad,
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 10)
+        }
 
         let readUserFile = fs.readFileSync('usuarios.json', {encoding: 'utf-8'});
         // Validación si readUserFile está vacio
@@ -31,7 +36,7 @@ let userController = {
     processLogin: (req, res) => {
         let errors = validationResult(req);
         if(errors.isEmpty()) {
-            let usersJSON = fs.readFileSync('usuarios.json', {  })
+            let usersJSON = fs.readFileSync('usuarios.json', {encoding:'utf-8'})
             let users;
             if(usersJSON == "") {
                 users = [];
@@ -40,12 +45,17 @@ let userController = {
             }
 
             for(let i = 0; i<users.length; i++) {
-                if(users[i].email == req.body.email) {
-                    if(bcrypt.compareSync(req.body.password, users[i].password[i])) {
-                        let usuarioALoguearse = users[i];
-                        break;
-                    }
-                }
+
+                
+
+
+
+                // if(users[i].email == req.body.email) {
+                //     if(bcrypt.compareSync(req.body.password, users[i].password[i])) {
+                //         let usuarioALoguearse = users[i];
+                //         break;
+                //     }
+                // }
             }
 
             if(usuarioALoguearse == undefined) {

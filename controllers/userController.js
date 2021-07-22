@@ -1,11 +1,7 @@
+const bcrypt = require('bcryptjs');
 let fs = require('fs');
-// let users = [
-//     {id: 1, name: 'Juan'},
-//     {id: 2, name: 'Karina'},
-//     {id: 3, name: 'Roberto'},
-//     {id: 4, name: 'Leonor'},
-//     {id: 5, name: 'Dario'}
-// ];
+const { validationResult } = require('express-validator');
+
 
 let userController = {
     register: (req, res) => res.render('register'),
@@ -29,7 +25,41 @@ let userController = {
 
         res.redirect('/users/list');
     },
-    login: (req, res) => res.render('login'),
+    login: (req, res) => {
+        return res.render('login');
+    },
+    processLogin: (req, res) => {
+        let errors = validationResult(req);
+        if(errors.isEmpty()) {
+            let usersJSON = fs.readFileSync('usuarios.json', {  })
+            let users;
+            if(usersJSON == "") {
+                users = [];
+            } else {
+                users = JSON.parse(usersJSON);
+            }
+
+            for(let i = 0; i<users.length; i++) {
+                if(users[i].email == req.body.email) {
+                    if(bcrypt.compareSync(req.body.password, users[i].password[i])) {
+                        let usuarioALoguearse = users[i];
+                        break;
+                    }
+                }
+            }
+
+            if(usuarioALoguearse == undefined) {
+                return res.render('login', { errors: [
+                    {msg: 'Credenciales inválidas'}
+                ]});
+            }
+
+            req.session.usuarioLogueado = usuarioALoguearse;
+            res.render('success');
+        } else {
+            return res.render('login', { errors: errors.errors })
+        }
+    },
     list: (req, res) => {
         let archivoUsers = fs.readFileSync('usuarios.json', {encoding: 'utf-8'});
         let users = JSON.parse(archivoUsers);

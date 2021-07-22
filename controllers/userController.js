@@ -45,10 +45,11 @@ let userController = {
             }
 
             for(let i = 0; i<users.length; i++) {
+                if(req.body.email == users[i].email && bcrypt.compareSync(req.body.password, users[i].password)) {
+                    res.send('Te encontré')
+                }
 
                 
-
-
 
                 // if(users[i].email == req.body.email) {
                 //     if(bcrypt.compareSync(req.body.password, users[i].password[i])) {
@@ -57,18 +58,19 @@ let userController = {
                 //     }
                 // }
             }
-
-            if(usuarioALoguearse == undefined) {
-                return res.render('login', { errors: [
-                    {msg: 'Credenciales inválidas'}
-                ]});
-            }
-
-            req.session.usuarioLogueado = usuarioALoguearse;
-            res.render('success');
-        } else {
-            return res.render('login', { errors: errors.errors })
+            res.send('error')
         }
+        //     if(usuarioALoguearse == undefined) {
+        //         return res.render('login', { errors: [
+        //             {msg: 'Credenciales inválidas'}
+        //         ]});
+        //     }
+
+        //     req.session.usuarioLogueado = usuarioALoguearse;
+        //     res.render('success');
+        // } else {
+        //     return res.render('login', { errors: errors.errors })
+        // }
     },
     list: (req, res) => {
         let archivoUsers = fs.readFileSync('usuarios.json', {encoding: 'utf-8'});

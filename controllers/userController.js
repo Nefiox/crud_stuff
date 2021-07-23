@@ -63,54 +63,15 @@ let userController = {
                 }
 
                 req.session.usuarioLogueado = usuarioALoguearse;
-                res.render('success');
 
+                if(req.body.rememberme != undefined) {
+                    res.cookie('rememberme', usuarioALoguearse.email, { maxAge: 80000 });
+                }
+                res.render('success');
+                
             } else { // Si hay errores
                 return res.render('login', { errors: errors.errors })
             }
-
-
-
-        /// TODO OKKK
-        // let errors = validationResult(req);
-
-        // if(errors.isEmpty()) { // Si hay errores... 
-        //     let usersJSON = fs.readFileSync('usuarios.json', {encoding:'utf-8'})
-        //     let users;
-        //     if(usersJSON == "") {
-        //         users = [];
-        //     } else { // Si no hay errores
-        //         users = JSON.parse(usersJSON);
-        //     }
-
-        //     for(let i = 0; i<users.length; i++) {
-        //         if(req.body.email == users[i].email && bcrypt.compareSync(req.body.password, users[i].password)) {
-        //             res.send('Te encontré')
-        //         }
-        /// TODO OKKK
-
-                
-
-                // if(users[i].email == req.body.email) {
-                //     if(bcrypt.compareSync(req.body.password, users[i].password[i])) {
-                //         let usuarioALoguearse = users[i];
-                //         break;
-                //     }
-                // }
-        //     }
-        //     res.send('error')
-        // }
-        //     if(usuarioALoguearse == undefined) {
-        //         return res.render('login', { errors: [
-        //             {msg: 'Credenciales inválidas'}
-        //         ]});
-        //     }
-
-        //     req.session.usuarioLogueado = usuarioALoguearse;
-        //     res.render('success');
-        // } else {
-        //     return res.render('login', { errors: errors.errors })
-        // }
     },
     list: (req, res) => {
         let archivoUsers = fs.readFileSync('usuarios.json', {encoding: 'utf-8'});

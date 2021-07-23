@@ -22,14 +22,7 @@ router.post('/register', logDBMiddleware, userController.create); // CREA INFO, 
 router.get('/login', userController.login);
 router.post('/login', validation, userController.processLogin);
 
-router.get('/check', (req, res) => {
-  if(req.session.usuarioLogueado == undefined) {
-    res.send('No estás logueado')
-  } else {
-    res.send(`El usuario logueado es ${req.session.usuarioLogueado.email}.`)
-  }
-});
-
+router.get('/check', (req, res) => req.session.usuarioLogueado == undefined ? res.send('No estás logueado')  : res.send(`El usuario logueado es ${req.session.usuarioLogueado.email}.`));
 
 router.get('/list', userController.list);
 

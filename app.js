@@ -6,6 +6,7 @@ var logger = require('morgan');
 var methodOverride = require('method-override');
 let logMiddleware = require('./middlewares/logMiddleware');
 let session = require('express-session');
+let remembermeMiddleware = require('./middlewares/remembermeMiddleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -29,6 +30,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+app.use(remembermeMiddleware);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

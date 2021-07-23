@@ -34,20 +34,60 @@ let userController = {
         return res.render('login');
     },
     processLogin: (req, res) => {
+
         let errors = validationResult(req);
-        if(errors.isEmpty()) {
-            let usersJSON = fs.readFileSync('usuarios.json', {encoding:'utf-8'})
-            let users;
-            if(usersJSON == "") {
-                users = [];
-            } else {
-                users = JSON.parse(usersJSON);
+
+        if(errors.isEmpty()) { // Si no hay errores... 
+            // Válida si la BD tiene registros, si no, crea un array.
+                let usersJSON = fs.readFileSync('usuarios.json', {encoding:'utf-8'})
+                let users;
+                if(usersJSON == "") {
+                    users = [];
+                } else { 
+                    users = JSON.parse(usersJSON);
+                }
+
+                let usuarioALoguearse;
+                
+                for(let i = 0; i<users.length; i++) {
+                    if(users[i].email == req.body.email && bcrypt.compareSync(req.body.password, users[i].password)) {
+                        usuarioALoguearse = users[i];
+                        break;
+                    }
+                }
+
+                if(usuarioALoguearse == undefined) {
+                    return res.render('login', {errors: [
+                        { msg: 'Credenciales inválidas' }
+                    ]});
+                }
+
+                req.session.usuarioLogueado = usuarioALoguearse;
+                res.render('success');
+
+            } else { // Si hay errores
+                return res.render('login', { errors: errors.errors })
             }
 
-            for(let i = 0; i<users.length; i++) {
-                if(req.body.email == users[i].email && bcrypt.compareSync(req.body.password, users[i].password)) {
-                    res.send('Te encontré')
-                }
+
+
+        /// TODO OKKK
+        // let errors = validationResult(req);
+
+        // if(errors.isEmpty()) { // Si hay errores... 
+        //     let usersJSON = fs.readFileSync('usuarios.json', {encoding:'utf-8'})
+        //     let users;
+        //     if(usersJSON == "") {
+        //         users = [];
+        //     } else { // Si no hay errores
+        //         users = JSON.parse(usersJSON);
+        //     }
+
+        //     for(let i = 0; i<users.length; i++) {
+        //         if(req.body.email == users[i].email && bcrypt.compareSync(req.body.password, users[i].password)) {
+        //             res.send('Te encontré')
+        //         }
+        /// TODO OKKK
 
                 
 
@@ -57,9 +97,9 @@ let userController = {
                 //         break;
                 //     }
                 // }
-            }
-            res.send('error')
-        }
+        //     }
+        //     res.send('error')
+        // }
         //     if(usuarioALoguearse == undefined) {
         //         return res.render('login', { errors: [
         //             {msg: 'Credenciales inválidas'}

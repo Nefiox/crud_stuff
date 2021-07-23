@@ -3,17 +3,33 @@ let router = express.Router();
 let userController = require('../controllers/userController');
 let logDBMiddleware = require('../middlewares/logDBMiddleware');
 let { check } = require('express-validator');
+let authMiddleware = require('../middlewares/authMiddleware');
+let guestMiddleware = require('../middlewares/guestMiddleware');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/register', userController.register);
+let validation = [
+  check('email').isEmail().withMessage('Ingresa in email válido'),
+  check('password').isLength({min: 4}).withMessage('La contraseña debe tener mínimo 4 caracteres')
+];
+
+router.get('/register', guestMiddleware, userController.register);
 router.post('/register', logDBMiddleware, userController.create); // CREA INFO, USO DE MIDDLEWARE NIVEL RUTA
 
 router.get('/login', userController.login);
-router.post('/login', userController.processLogin);
+router.post('/login', validation, userController.processLogin);
+
+router.get('/check', (req, res) => {
+  if(req.session.usuarioLogueado == undefined) {
+    res.send('No estás logueado')
+  } else {
+    res.send(`El usuario logueado es ${req.session.usuarioLogueado.email}.`)
+  }
+});
+
 
 router.get('/list', userController.list);
 
